@@ -91,5 +91,4 @@ function stop() {
 
     document.getElementById("free_play_link_li").innerHTML = '<a href="#" onclick="setvars()" class="free_play_link">START BOT</a>';
 }
-ef86acc45d1f01c16d45638366adef415cf3787a
 
