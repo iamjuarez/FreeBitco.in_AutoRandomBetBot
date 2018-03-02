@@ -9,12 +9,14 @@ var stopped,
     before,
     after,
     betafter,
+    betbefore,
     base,
     counter = 0,
     randhilo,
     multiplier,
     seedint,
     betval,
+    multiply,
     interval,
     lastbet;
 
@@ -22,14 +24,16 @@ var stopped,
 function setvars() {
     min = prompt('Min bet', 1);
     min = deexpo(min);
-    max = prompt('Max bet', 2056);
+    max = prompt('Max bet', 10000);
     max = deexpo(max);
-    betafter = prompt('Number of bets at min bet before base bet', 8);
-    base = prompt('Base bet amount', 64);
+    betafter = prompt('Number of bets at min bet before base bet', 5);
+    betbefore = prompt('Number of bets and back to minbet so you dont lose money', 14);
+    base = prompt('Base bet amount', 25);
     base = deexpo(base);
-    speed = prompt('Wait between each bet', '1250');
-    multiplier = prompt('Bet multiplier', 4);
+    speed = prompt('Wait between each bet', '750');
+    multiplier = prompt('Bet multiplier', 3.8);
     $('#double_your_btc_payout_multiplier').val(multiplier);
+    multiply = prompt('On lose multiply by ', 2);
     randhilo = prompt('Bet hi, bet lo, or rand', 'rand');
 
     start();
@@ -54,6 +58,7 @@ seedint = setInterval(changeSeed, 30000);
 
 function hilo() {
     counter++;
+    console.log(counter);
     if(randhilo =='hi')
         {
     DoubleYourBTC('hi');
@@ -95,9 +100,9 @@ function double()
        betval = $('#double_your_btc_stake').val();
      hilo();  
     }
-    else if(counter > betafter && betval*2 <max)
+    else if((counter > betafter) && (betval*2 <max) || (counter > betbefore))
         {
-            $('#double_your_btc_stake').val(betval*1.5);
+            $('#double_your_btc_stake').val(betval*multiply);
           betval=  $('#double_your_btc_stake').val();
             
             hilo();
